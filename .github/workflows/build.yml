@@ -60,7 +60,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: PotatoVN.Client
-        path: /tmp/*.nupkg
+        path: /tmp/nupkg/*.nupkg
 
     - name: Commit and push changes
       run: |
