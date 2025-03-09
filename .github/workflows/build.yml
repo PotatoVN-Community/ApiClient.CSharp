@@ -1,0 +1,71 @@
+﻿name: Generate C# Client and Publish
+
+on:
+  workflow_dispatch:
+
+jobs:
+  generate-client:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        persist-credentials: true
+
+    - name: Download Swagger JSON
+      run: curl -o swagger.json https://potatovn.dev.potatox.moe:1443/swagger/v1/swagger.json
+
+    - name: Install OpenAPI Generator
+      run: npm install -g @openapitools/openapi-generator-cli
+
+    - name: Generate C# Client
+      run: openapi-generator-cli generate -g csharp -i swagger.json -o Client.CSharp --additional-properties="library=httpclient,packageName=PotatoVN.Client,targetFramework=net8.0"
+
+    - name: Copy README.md to Client.CSharp directory
+      run: cp README.md Client.CSharp/README.md
+
+    - name: Modify .csproj file
+      run: |
+        FILE="Client.CSharp/src/PotatoVN.Client/PotatoVN.Client.csproj"
+        # Update Version
+        sed -i "s/<Version>.*<\/Version>/<Version>1.0.$GITHUB_RUN_NUMBER<\/Version>/g" $FILE
+        # Update RepositoryUrl
+        sed -i "s|<RepositoryUrl>.*</RepositoryUrl>|<RepositoryUrl>https://github.com/GoldenPotato137/PotatoVN</RepositoryUrl>|g" $FILE
+        # Add PackageProjectUrl if missing
+        if ! grep -q "<PackageProjectUrl>" $FILE; then
+          sed -i "/<\/PropertyGroup>/i \ \ <PackageProjectUrl>https://github.com/GoldenPotato137/PotatoVN</PackageProjectUrl>" $FILE
+        fi
+        # Add PackageLicenseExpression if missing
+        if ! grep -q "<PackageLicenseExpression>" $FILE; then
+          sed -i "/<\/PropertyGroup>/i \ \ <PackageLicenseExpression>MIT</PackageLicenseExpression>" $FILE
+        fi
+        # Add PackageReadmeFile if missing
+        if ! grep -q "<PackageReadmeFile>" $FILE; then
+          sed -i "/<\/PropertyGroup>/i \ \ <PackageReadmeFile>README.md</PackageReadmeFile>" $FILE
+        fi
+        # Add None element to ItemGroup
+        if ! grep -q 'Include="..\\..\\README.md"' $FILE; then
+          sed -i '/<\/ItemGroup>/i \ \ <None Include="..\\..\\README.md">\n\ \ \ \ <Pack>True<\/Pack>\n\ \ \ \ <PackagePath>\\<\/PackagePath>\n\ \ <\/None>' $FILE
+        fi
+
+    - name: Build and pack the library
+      run: |
+        cd Client.CSharp/src/PotatoVN.Client
+        dotnet build -c Release
+        dotnet pack -c Release -o ../../../../nupkg
+
+    - name: Upload NuGet package as artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: PotatoVN.Client
+        path: nupkg/*.nupkg
+
+    - name: Commit and push changes
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add Client.CSharp
+        git commit -m "chore: Update generated C# client (run $GITHUB_RUN_NUMBER)"
+        git push
