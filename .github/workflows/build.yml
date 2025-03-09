@@ -54,13 +54,13 @@ jobs:
       run: |
         cd Client.CSharp/src/PotatoVN.Client
         dotnet build -c Release
-        dotnet pack -c Release -o ../../../../nupkg
+        dotnet pack -c Release -o /tmp/nupkg
 
     - name: Upload NuGet package as artifact
       uses: actions/upload-artifact@v4
       with:
         name: PotatoVN.Client
-        path: nupkg/*.nupkg
+        path: /tmp/*.nupkg
 
     - name: Commit and push changes
       run: |
