@@ -23,8 +23,8 @@ jobs:
     - name: Generate C# Client
       run: openapi-generator-cli generate -g csharp -i swagger.json -o Client.CSharp --additional-properties="library=httpclient,packageName=PotatoVN.Client,targetFramework=net8.0"
 
-    - name: Copy README.md to Client.CSharp directory
-      run: cp README.md Client.CSharp/README.md
+    # - name: Copy README.md to Client.CSharp directory
+    #   run: cp README.md Client.CSharp/README.md
 
     - name: Modify .csproj file
       run: |
