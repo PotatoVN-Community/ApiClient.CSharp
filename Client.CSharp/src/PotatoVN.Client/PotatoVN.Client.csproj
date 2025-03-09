@@ -1,0 +1,49 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo><!-- setting GenerateAssemblyInfo to false causes this bug https://github.com/dotnet/project-system/issues/3934 -->
+    <TargetFramework>net8.0</TargetFramework>
+    <AssemblyName>PotatoVN.Client</AssemblyName>
+    <PackageId>PotatoVN.Client</PackageId>
+    <OutputType>Library</OutputType>
+    <Authors>OpenAPI</Authors>
+    <Company>OpenAPI</Company>
+    <AssemblyTitle>OpenAPI Library</AssemblyTitle>
+    <Description>A library generated from a OpenAPI doc</Description>
+    <Copyright>No Copyright</Copyright>
+    <RootNamespace>PotatoVN.Client</RootNamespace>
+    <Version>1.0.4</Version>
+    <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\PotatoVN.Client.xml</DocumentationFile>
+    <RepositoryUrl>https://github.com/GoldenPotato137/PotatoVN</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageReleaseNotes>Minor update</PackageReleaseNotes>
+    <Nullable>annotations</Nullable>
+    <ManagePackageVersionsCentrally>false</ManagePackageVersionsCentrally>
+  <PackageProjectUrl>https://github.com/GoldenPotato137/PotatoVN</PackageProjectUrl>
+  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+  <PackageReadmeFile>README.md</PackageReadmeFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="JsonSubTypes" Version="2.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Polly" Version="8.1.0" />
+  <None Include="..\..\README.md">
+    <Pack>True</Pack>
+    <PackagePath>\</PackagePath>
+  </None>
+  </ItemGroup>
+
+  <ItemGroup>
+  <None Include="..\..\README.md">
+    <Pack>True</Pack>
+    <PackagePath>\</PackagePath>
+  </None>
+  </ItemGroup>
+  <ItemGroup>
+  <None Include="..\..\README.md">
+    <Pack>True</Pack>
+    <PackagePath>\</PackagePath>
+  </None>
+  </ItemGroup>
+</Project>

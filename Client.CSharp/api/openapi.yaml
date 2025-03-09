@@ -1,0 +1,1358 @@
+openapi: 3.0.1
+info:
+  title: PotatoVN.Server
+  version: v1
+servers:
+- url: /
+paths:
+  /bangumi/oauth:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: code
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BangumiToken'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BangumiToken'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BangumiToken'
+          description: 成功，返回token信息
+        "400":
+          description: code无效
+        "502":
+          description: 无法连接至bangumi服务器
+        "503":
+          description: Bangumi服务没有启用
+      summary: 使用code换取bgm token
+      tags:
+      - bangumi
+  /bangumi/refresh:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: refreshToken
+        required: true
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/BangumiToken'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BangumiToken'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/BangumiToken'
+          description: 成功，返回token信息
+        "400":
+          description: code无效
+        "502":
+          description: 无法连接至bangumi服务器
+        "503":
+          description: Bangumi服务没有启用
+      summary: 使用refresh token换取bgm token
+      tags:
+      - bangumi
+  /galgame:
+    delete:
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+      - oauth2: []
+      summary: 删除用户的所有游戏
+      tags:
+      - galgame
+    get:
+      description: 获取最后一次更新时间严格晚于给定时间戳的galgame列表
+      parameters:
+      - explode: true
+        in: query
+        name: timestamp
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageIndex
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GalgameDtoPagedResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDtoPagedResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDtoPagedResult'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "400":
+          description: pageIndex小于0或pageSize小于等于0
+      security:
+      - oauth2: []
+      summary: 获取galgame列表
+      tags:
+      - galgame
+    patch:
+      description: "所有字段均可选，覆盖原字段 <br /><b>若Id没有填，则认为是新建galgame</b><br />\r\n务必注意字\
+        段是覆盖的，意味着游玩时间记录会覆盖掉原记录，若需要追加记录请使用[PATCH] /galgame/{id}/playlog <br />"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GalgameUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/GalgameUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/GalgameUpdateDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: 填入了id字段，但不存在具有该id的galgame
+        "400":
+          description: 调用方不是该游戏所属者
+      security:
+      - oauth2: []
+      summary: 新建或更新galgame
+      tags:
+      - galgame
+  /galgame/deleted:
+    get:
+      description: 获取删除时间严格晚于给定时间戳的galgame列表
+      parameters:
+      - explode: true
+        in: query
+        name: timestamp
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageIndex
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GalgameDeletedDtoPagedResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDeletedDtoPagedResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDeletedDtoPagedResult'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+      - oauth2: []
+      summary: 获取已删除的galgame列表
+      tags:
+      - galgame
+  /galgame/{galgameId}/playlog:
+    patch:
+      description: 若已经有当天游戏的记录，则累加上去
+      parameters:
+      - explode: false
+        in: path
+        name: galgameId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlayLogDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/PlayLogDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/PlayLogDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: 游戏不存在
+        "400":
+          description: 调用方不是该游戏所属者
+      security:
+      - oauth2: []
+      summary: 添加游玩记录或游玩时长
+      tags:
+      - galgame
+  /galgame/{galgameId}:
+    delete:
+      description: 只能删除自己的游戏
+      parameters:
+      - explode: false
+        in: path
+        name: galgameId
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: 游戏不存在
+        "400":
+          description: 该游戏不属于此用户
+      security:
+      - oauth2: []
+      summary: 删除游戏
+      tags:
+      - galgame
+  /oss/put:
+    get:
+      parameters:
+      - description: 上传文件名（包括前缀），如：Galgame/114514.jpg
+        explode: true
+        in: query
+        name: objectFullName
+        required: false
+        schema:
+          default: ""
+          type: string
+        style: form
+      - description: 要上传的文件大小（byte），默认为10MB
+        explode: true
+        in: query
+        name: requireSpace
+        required: false
+        schema:
+          default: 10485760
+          format: int64
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "400":
+          description: objectFullName不合法 或 用户存储容量已满
+      security:
+      - oauth2: []
+      summary: 获取oss预签名上传路径， 获取链接后会预先占用请求的空间， 直到客户端使用UpdateSpace通知服务器更新空间
+      tags:
+      - oss
+  /oss/get:
+    get:
+      parameters:
+      - description: 上传文件名（包括前缀），如：Galgame/114514.jpg
+        explode: true
+        in: query
+        name: objectFullName
+        required: false
+        schema:
+          default: ""
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                type: string
+            application/json:
+              schema:
+                type: string
+            text/json:
+              schema:
+                type: string
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: 文件不存在
+      security:
+      - oauth2: []
+      summary: 获取oss预签名读取路径
+      tags:
+      - oss
+  /oss/update:
+    put:
+      description: 更新某个key下文件所占用的空间<br /><b>即使是上传失败/取消，也需要调用此接口以释放预占用的空间</b>
+      parameters:
+      - explode: true
+        in: query
+        name: objectFullName
+        required: false
+        schema:
+          default: ""
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "400":
+          description: token对应的用户不存在
+      security:
+      - oauth2: []
+      summary: 更新某个key下文件占用空间，一般用于上传完成后通知服务器计算具体空间
+      tags:
+      - oss
+  /server/info:
+    get:
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ServerInfoDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerInfoDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ServerInfoDto'
+          description: Success
+      summary: 获取服务器信息
+      tags:
+      - server
+  /user:
+    get:
+      description: "<b>该命令需要管理员权限</b>\r\n<br />\r\n            pageIndex从0开始<br />\r\
+        \n            不返回用户的头像URL"
+      parameters:
+      - explode: true
+        in: query
+        name: pageIndex
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 20
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDtoPagedResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoPagedResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDtoPagedResult'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+      - oauth2: []
+      summary: 获取用户列表
+      tags:
+      - user
+    post:
+      description: 若注册成功则返回用户信息与token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserRegisterDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+          description: Success
+        "400":
+          description: 该用户名已被占用
+        "503":
+          description: 不允许使用账户密码登录与注册
+      summary: 注册账户
+      tags:
+      - user
+  /user/{id}:
+    get:
+      description: <b>该命令需要管理员权限</b>
+      parameters:
+      - explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: 用户不存在
+      security:
+      - oauth2: []
+      summary: 获取指定id的用户
+      tags:
+      - user
+  /user/me:
+    get:
+      parameters:
+      - explode: true
+        in: query
+        name: withAvatar
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+      - oauth2: []
+      summary: 获取自己的用户信息
+      tags:
+      - user
+    patch:
+      description: 所有字段均可选
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserModifyDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserModifyDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserModifyDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserDto'
+          description: 成功，返回新的用户信息
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "400":
+          description: 填入了新密码但旧密码不正确/没填写
+      security:
+      - oauth2: []
+      summary: 修改用户信息
+      tags:
+      - user
+  /user/session:
+    post:
+      description: 若登录成功则返回jwtToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserLoginDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+          description: 登录成功，返回token
+        "400":
+          description: 账户不存在或密码不正确
+        "503":
+          description: 不允许使用账户密码登录与注册
+      summary: 登录账户
+      tags:
+      - user
+  /user/session/bgm:
+    post:
+      description: 如果该bgm账户没有potatoVN账号，则自动注册一个
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginViaBgmDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UserLoginViaBgmDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UserLoginViaBgmDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+          description: 用户信息与token
+        "400":
+          description: token无效
+        "502":
+          description: 无法连接至bgm服务器
+        "503":
+          description: 不允许使用bangumi注册与登录
+      summary: 使用bgm账户登录/注册
+      tags:
+      - user
+  /user/session/refresh:
+    get:
+      description: 获取一个当前用户的新token
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/UserWithTokenDto'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+      security:
+      - oauth2: []
+      summary: 获取一个新jwt token
+      tags:
+      - user
+  /weather_forecast:
+    get:
+      operationId: GetWeatherForecast
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WeatherForecast'
+                type: array
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WeatherForecast'
+                type: array
+            text/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/WeatherForecast'
+                type: array
+          description: Success
+      tags:
+      - weather_forecast
+components:
+  schemas:
+    BangumiToken:
+      additionalProperties: false
+      example:
+        expires: 0
+        userId: 6
+        token: token
+        refreshToken: refreshToken
+      properties:
+        token:
+          nullable: true
+          type: string
+        refreshToken:
+          nullable: true
+          type: string
+        expires:
+          format: int64
+          type: integer
+        userId:
+          format: int32
+          type: integer
+      type: object
+    DateOnly:
+      additionalProperties: false
+      example:
+        dayOfWeek: 5
+        month: 6
+        year: 0
+        dayOfYear: 5
+        dayNumber: 2
+        day: 1
+      properties:
+        year:
+          format: int32
+          type: integer
+        month:
+          format: int32
+          type: integer
+        day:
+          format: int32
+          type: integer
+        dayOfWeek:
+          $ref: '#/components/schemas/DayOfWeek'
+        dayOfYear:
+          format: int32
+          readOnly: true
+          type: integer
+        dayNumber:
+          format: int32
+          readOnly: true
+          type: integer
+      type: object
+    DayOfWeek:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      format: int32
+      type: integer
+    GalgameDeletedDto:
+      additionalProperties: false
+      example:
+        galgameId: 5
+        deleteTimeStamp: 2
+      properties:
+        galgameId:
+          format: int32
+          type: integer
+        deleteTimeStamp:
+          format: int64
+          type: integer
+      type: object
+    GalgameDeletedDtoPagedResult:
+      additionalProperties: false
+      example:
+        pageCnt: 6
+        pageIndex: 1
+        cnt: 0
+        pageSize: 5
+        items:
+        - galgameId: 5
+          deleteTimeStamp: 2
+        - galgameId: 5
+          deleteTimeStamp: 2
+      properties:
+        cnt:
+          format: int32
+          type: integer
+        pageCnt:
+          format: int32
+          type: integer
+        pageIndex:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+        items:
+          items:
+            $ref: '#/components/schemas/GalgameDeletedDto'
+          nullable: true
+          type: array
+      type: object
+    GalgameDto:
+      additionalProperties: false
+      example:
+        releasedDateTimeStamp: 7
+        expectedPlayTime: expectedPlayTime
+        rating: 2.302136
+        vndbId: vndbId
+        description: description
+        totalPlayTime: 2
+        tags:
+        - tags
+        - tags
+        privateComment: true
+        cnName: cnName
+        playType: 4
+        bgmId: bgmId
+        imageUrl: imageUrl
+        name: name
+        developer: developer
+        playTime:
+        - dateTimeStamp: 9
+          minute: 3
+        - dateTimeStamp: 9
+          minute: 3
+        comment: comment
+        id: 5
+        myRate: 7
+      properties:
+        id:
+          format: int32
+          type: integer
+        bgmId:
+          nullable: true
+          type: string
+        vndbId:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        cnName:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        developer:
+          nullable: true
+          type: string
+        expectedPlayTime:
+          nullable: true
+          type: string
+        rating:
+          format: float
+          type: number
+        releasedDateTimeStamp:
+          format: int64
+          type: integer
+        imageUrl:
+          nullable: true
+          type: string
+        tags:
+          items:
+            type: string
+          nullable: true
+          type: array
+        playTime:
+          items:
+            $ref: '#/components/schemas/PlayLogDto'
+          nullable: true
+          type: array
+        totalPlayTime:
+          format: int32
+          type: integer
+        playType:
+          $ref: '#/components/schemas/PlayType'
+        comment:
+          nullable: true
+          type: string
+        myRate:
+          format: int32
+          type: integer
+        privateComment:
+          type: boolean
+      type: object
+    GalgameDtoPagedResult:
+      additionalProperties: false
+      example:
+        pageCnt: 6
+        pageIndex: 1
+        cnt: 0
+        pageSize: 5
+        items:
+        - releasedDateTimeStamp: 7
+          expectedPlayTime: expectedPlayTime
+          rating: 2.302136
+          vndbId: vndbId
+          description: description
+          totalPlayTime: 2
+          tags:
+          - tags
+          - tags
+          privateComment: true
+          cnName: cnName
+          playType: 4
+          bgmId: bgmId
+          imageUrl: imageUrl
+          name: name
+          developer: developer
+          playTime:
+          - dateTimeStamp: 9
+            minute: 3
+          - dateTimeStamp: 9
+            minute: 3
+          comment: comment
+          id: 5
+          myRate: 7
+        - releasedDateTimeStamp: 7
+          expectedPlayTime: expectedPlayTime
+          rating: 2.302136
+          vndbId: vndbId
+          description: description
+          totalPlayTime: 2
+          tags:
+          - tags
+          - tags
+          privateComment: true
+          cnName: cnName
+          playType: 4
+          bgmId: bgmId
+          imageUrl: imageUrl
+          name: name
+          developer: developer
+          playTime:
+          - dateTimeStamp: 9
+            minute: 3
+          - dateTimeStamp: 9
+            minute: 3
+          comment: comment
+          id: 5
+          myRate: 7
+      properties:
+        cnt:
+          format: int32
+          type: integer
+        pageCnt:
+          format: int32
+          type: integer
+        pageIndex:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+        items:
+          items:
+            $ref: '#/components/schemas/GalgameDto'
+          nullable: true
+          type: array
+      type: object
+    GalgameUpdateDto:
+      additionalProperties: false
+      example:
+        releaseDateTimeStamp: 1
+        expectedPlayTime: expectedPlayTime
+        imageLoc: imageLoc
+        rating: 6.0274563
+        vndbId: vndbId
+        description: description
+        totalPlayTime: 5
+        tags:
+        - tags
+        - tags
+        privateComment: true
+        cnName: cnName
+        playType: 5
+        bgmId: bgmId
+        name: name
+        developer: developer
+        playTime:
+        - dateTimeStamp: 9
+          minute: 3
+        - dateTimeStamp: 9
+          minute: 3
+        comment: comment
+        id: 0
+        myRate: 2
+      properties:
+        id:
+          format: int32
+          nullable: true
+          type: integer
+        bgmId:
+          nullable: true
+          type: string
+        vndbId:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        cnName:
+          nullable: true
+          type: string
+        description:
+          nullable: true
+          type: string
+        developer:
+          nullable: true
+          type: string
+        expectedPlayTime:
+          nullable: true
+          type: string
+        rating:
+          format: float
+          nullable: true
+          type: number
+        releaseDateTimeStamp:
+          format: int64
+          nullable: true
+          type: integer
+        imageLoc:
+          nullable: true
+          type: string
+        tags:
+          items:
+            type: string
+          nullable: true
+          type: array
+        totalPlayTime:
+          format: int32
+          nullable: true
+          type: integer
+        playType:
+          $ref: '#/components/schemas/PlayType'
+        playTime:
+          items:
+            $ref: '#/components/schemas/PlayLogDto'
+          nullable: true
+          type: array
+        comment:
+          nullable: true
+          type: string
+        myRate:
+          format: int32
+          nullable: true
+          type: integer
+        privateComment:
+          nullable: true
+          type: boolean
+      type: object
+    PlayLogDto:
+      additionalProperties: false
+      example:
+        dateTimeStamp: 9
+        minute: 3
+      properties:
+        dateTimeStamp:
+          description: 游玩日期当天0点0分的时间戳
+          format: int64
+          type: integer
+        minute:
+          format: int32
+          type: integer
+      type: object
+    PlayType:
+      enum:
+      - 0
+      - 1
+      - 2
+      - 3
+      - 4
+      format: int32
+      type: integer
+    ServerInfoDto:
+      additionalProperties: false
+      example:
+        bangumiOAuth2Enable: true
+        bangumiLoginEnable: true
+        defaultLoginEnable: true
+      properties:
+        bangumiOAuth2Enable:
+          type: boolean
+        defaultLoginEnable:
+          type: boolean
+        bangumiLoginEnable:
+          type: boolean
+      type: object
+    UserDto:
+      additionalProperties: false
+      example:
+        usedSpace: 5
+        lastGalChangedTimeStamp: 2
+        userDisplayName: userDisplayName
+        id: 0
+        avatar: avatar
+        totalSpace: 5
+        userName: userName
+        type: 6
+        bangumiId: 1
+      properties:
+        id:
+          format: int32
+          type: integer
+        userName:
+          nullable: true
+          type: string
+        userDisplayName:
+          nullable: true
+          type: string
+        type:
+          $ref: '#/components/schemas/UserType'
+        bangumiId:
+          description: 用户所属的BangumiId，若为0则表示未绑定
+          format: int32
+          type: integer
+        avatar:
+          description: 用户头像URL，可能为null
+          nullable: true
+          type: string
+        usedSpace:
+          format: int64
+          type: integer
+        totalSpace:
+          format: int64
+          type: integer
+        lastGalChangedTimeStamp:
+          format: int64
+          type: integer
+      type: object
+    UserDtoPagedResult:
+      additionalProperties: false
+      example:
+        pageCnt: 6
+        pageIndex: 1
+        cnt: 0
+        pageSize: 5
+        items:
+        - usedSpace: 5
+          lastGalChangedTimeStamp: 2
+          userDisplayName: userDisplayName
+          id: 0
+          avatar: avatar
+          totalSpace: 5
+          userName: userName
+          type: 6
+          bangumiId: 1
+        - usedSpace: 5
+          lastGalChangedTimeStamp: 2
+          userDisplayName: userDisplayName
+          id: 0
+          avatar: avatar
+          totalSpace: 5
+          userName: userName
+          type: 6
+          bangumiId: 1
+      properties:
+        cnt:
+          format: int32
+          type: integer
+        pageCnt:
+          format: int32
+          type: integer
+        pageIndex:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+        items:
+          items:
+            $ref: '#/components/schemas/UserDto'
+          nullable: true
+          type: array
+      type: object
+    UserLoginDto:
+      additionalProperties: false
+      example:
+        password: password
+        userName: userName
+      properties:
+        userName:
+          minLength: 1
+          type: string
+        password:
+          minLength: 1
+          type: string
+      required:
+      - password
+      - userName
+      type: object
+    UserLoginViaBgmDto:
+      additionalProperties: false
+      example:
+        bgmToken: bgmToken
+      properties:
+        bgmToken:
+          description: bangumi token
+          minLength: 1
+          type: string
+      required:
+      - bgmToken
+      type: object
+    UserModifyDto:
+      additionalProperties: false
+      example:
+        avatarLoc: avatarLoc
+        oldPassword: oldPassword
+        userDisplayName: userDisplayName
+        newPassword: newPassword
+      properties:
+        userDisplayName:
+          nullable: true
+          type: string
+        avatarLoc:
+          nullable: true
+          type: string
+        oldPassword:
+          nullable: true
+          type: string
+        newPassword:
+          nullable: true
+          type: string
+      type: object
+    UserRegisterDto:
+      additionalProperties: false
+      example:
+        password: password
+        userName: userName
+      properties:
+        userName:
+          minLength: 1
+          type: string
+        password:
+          minLength: 1
+          type: string
+      required:
+      - password
+      - userName
+      type: object
+    UserType:
+      enum:
+      - 0
+      - 1
+      format: int32
+      type: integer
+    UserWithTokenDto:
+      additionalProperties: false
+      example:
+        expire: 0
+        user:
+          usedSpace: 5
+          lastGalChangedTimeStamp: 2
+          userDisplayName: userDisplayName
+          id: 0
+          avatar: avatar
+          totalSpace: 5
+          userName: userName
+          type: 6
+          bangumiId: 1
+        token: token
+      properties:
+        user:
+          $ref: '#/components/schemas/UserDto'
+        token:
+          nullable: true
+          type: string
+        expire:
+          format: int64
+          type: integer
+      type: object
+    WeatherForecast:
+      additionalProperties: false
+      example:
+        date:
+          dayOfWeek: 5
+          month: 6
+          year: 0
+          dayOfYear: 5
+          dayNumber: 2
+          day: 1
+        summary: summary
+        temperatureC: 7
+        temperatureF: 9
+      properties:
+        date:
+          $ref: '#/components/schemas/DateOnly'
+        temperatureC:
+          format: int32
+          type: integer
+        temperatureF:
+          format: int32
+          readOnly: true
+          type: integer
+        summary:
+          nullable: true
+          type: string
+      type: object
+  securitySchemes:
+    oauth2:
+      in: header
+      name: Authorization
+      type: apiKey
+
