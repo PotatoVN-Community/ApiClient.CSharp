@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **ReleasedDateTimeStamp** | **long** |  | [optional] 
 **ImageUrl** | **string** |  | [optional] 
 **Tags** | **List&lt;string&gt;** |  | [optional] 
+**Characters** | [**List&lt;CharacterDto&gt;**](CharacterDto.md) |  | [optional] 
 **PlayTime** | [**List&lt;PlayLogDto&gt;**](PlayLogDto.md) |  | [optional] 
 **TotalPlayTime** | **int** |  | [optional] 
 **PlayType** | **PlayType** |  | [optional] 

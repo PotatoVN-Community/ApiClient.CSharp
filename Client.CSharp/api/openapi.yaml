@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: PotatoVN.Server
-  version: v1
+  version: v1.1
 servers:
 - url: /
 paths:
@@ -767,6 +767,140 @@ components:
           format: int32
           type: integer
       type: object
+    CharacterDto:
+      additionalProperties: false
+      example:
+        summary: summary
+        birthDay: 7
+        gender: 3
+        weight: weight
+        bloodType: bloodType
+        threeSize: threeSize
+        relation: relation
+        birthMonth: 4
+        birthYear: 2
+        previewImageUrl: previewImageUrl
+        imageUrl: imageUrl
+        name: name
+        id: 9
+        height: height
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          maxLength: 200
+          nullable: true
+          type: string
+        relation:
+          maxLength: 200
+          nullable: true
+          type: string
+        summary:
+          maxLength: 10000
+          nullable: true
+          type: string
+        gender:
+          $ref: '#/components/schemas/Gender'
+        birthYear:
+          format: int32
+          type: integer
+        birthMonth:
+          format: int32
+          type: integer
+        birthDay:
+          format: int32
+          type: integer
+        bloodType:
+          maxLength: 50
+          nullable: true
+          type: string
+        height:
+          maxLength: 50
+          nullable: true
+          type: string
+        weight:
+          maxLength: 50
+          nullable: true
+          type: string
+        threeSize:
+          maxLength: 50
+          nullable: true
+          type: string
+        imageUrl:
+          nullable: true
+          type: string
+        previewImageUrl:
+          nullable: true
+          type: string
+      type: object
+    CharacterUpdateDto:
+      additionalProperties: false
+      example:
+        summary: summary
+        birthDay: 2
+        gender: 7
+        imageLoc: imageLoc
+        previewImageLoc: previewImageLoc
+        weight: weight
+        bloodType: bloodType
+        threeSize: threeSize
+        relation: relation
+        birthMonth: 3
+        birthYear: 9
+        name: name
+        id: 2
+        height: height
+      properties:
+        id:
+          format: int32
+          type: integer
+        name:
+          maxLength: 200
+          nullable: true
+          type: string
+        relation:
+          maxLength: 200
+          nullable: true
+          type: string
+        summary:
+          maxLength: 10000
+          nullable: true
+          type: string
+        gender:
+          $ref: '#/components/schemas/Gender'
+        birthYear:
+          format: int32
+          type: integer
+        birthMonth:
+          format: int32
+          type: integer
+        birthDay:
+          format: int32
+          type: integer
+        bloodType:
+          maxLength: 50
+          nullable: true
+          type: string
+        height:
+          maxLength: 50
+          nullable: true
+          type: string
+        weight:
+          maxLength: 50
+          nullable: true
+          type: string
+        threeSize:
+          maxLength: 50
+          nullable: true
+          type: string
+        imageLoc:
+          nullable: true
+          type: string
+        previewImageLoc:
+          nullable: true
+          type: string
+      type: object
     DateOnly:
       additionalProperties: false
       example:
@@ -860,22 +994,51 @@ components:
         rating: 2.302136
         vndbId: vndbId
         description: description
-        totalPlayTime: 2
+        totalPlayTime: 1
         tags:
         - tags
         - tags
         privateComment: true
+        characters:
+        - summary: summary
+          birthDay: 7
+          gender: 3
+          weight: weight
+          bloodType: bloodType
+          threeSize: threeSize
+          relation: relation
+          birthMonth: 4
+          birthYear: 2
+          previewImageUrl: previewImageUrl
+          imageUrl: imageUrl
+          name: name
+          id: 9
+          height: height
+        - summary: summary
+          birthDay: 7
+          gender: 3
+          weight: weight
+          bloodType: bloodType
+          threeSize: threeSize
+          relation: relation
+          birthMonth: 4
+          birthYear: 2
+          previewImageUrl: previewImageUrl
+          imageUrl: imageUrl
+          name: name
+          id: 9
+          height: height
         cnName: cnName
-        playType: 4
+        playType: 6
         bgmId: bgmId
         imageUrl: imageUrl
         name: name
         developer: developer
         playTime:
-        - dateTimeStamp: 9
-          minute: 3
-        - dateTimeStamp: 9
-          minute: 3
+        - dateTimeStamp: 1
+          minute: 1
+        - dateTimeStamp: 1
+          minute: 1
         comment: comment
         id: 5
         myRate: 7
@@ -918,6 +1081,11 @@ components:
             type: string
           nullable: true
           type: array
+        characters:
+          items:
+            $ref: '#/components/schemas/CharacterDto'
+          nullable: true
+          type: array
         playTime:
           items:
             $ref: '#/components/schemas/PlayLogDto'
@@ -950,22 +1118,51 @@ components:
           rating: 2.302136
           vndbId: vndbId
           description: description
-          totalPlayTime: 2
+          totalPlayTime: 1
           tags:
           - tags
           - tags
           privateComment: true
+          characters:
+          - summary: summary
+            birthDay: 7
+            gender: 3
+            weight: weight
+            bloodType: bloodType
+            threeSize: threeSize
+            relation: relation
+            birthMonth: 4
+            birthYear: 2
+            previewImageUrl: previewImageUrl
+            imageUrl: imageUrl
+            name: name
+            id: 9
+            height: height
+          - summary: summary
+            birthDay: 7
+            gender: 3
+            weight: weight
+            bloodType: bloodType
+            threeSize: threeSize
+            relation: relation
+            birthMonth: 4
+            birthYear: 2
+            previewImageUrl: previewImageUrl
+            imageUrl: imageUrl
+            name: name
+            id: 9
+            height: height
           cnName: cnName
-          playType: 4
+          playType: 6
           bgmId: bgmId
           imageUrl: imageUrl
           name: name
           developer: developer
           playTime:
-          - dateTimeStamp: 9
-            minute: 3
-          - dateTimeStamp: 9
-            minute: 3
+          - dateTimeStamp: 1
+            minute: 1
+          - dateTimeStamp: 1
+            minute: 1
           comment: comment
           id: 5
           myRate: 7
@@ -974,22 +1171,51 @@ components:
           rating: 2.302136
           vndbId: vndbId
           description: description
-          totalPlayTime: 2
+          totalPlayTime: 1
           tags:
           - tags
           - tags
           privateComment: true
+          characters:
+          - summary: summary
+            birthDay: 7
+            gender: 3
+            weight: weight
+            bloodType: bloodType
+            threeSize: threeSize
+            relation: relation
+            birthMonth: 4
+            birthYear: 2
+            previewImageUrl: previewImageUrl
+            imageUrl: imageUrl
+            name: name
+            id: 9
+            height: height
+          - summary: summary
+            birthDay: 7
+            gender: 3
+            weight: weight
+            bloodType: bloodType
+            threeSize: threeSize
+            relation: relation
+            birthMonth: 4
+            birthYear: 2
+            previewImageUrl: previewImageUrl
+            imageUrl: imageUrl
+            name: name
+            id: 9
+            height: height
           cnName: cnName
-          playType: 4
+          playType: 6
           bgmId: bgmId
           imageUrl: imageUrl
           name: name
           developer: developer
           playTime:
-          - dateTimeStamp: 9
-            minute: 3
-          - dateTimeStamp: 9
-            minute: 3
+          - dateTimeStamp: 1
+            minute: 1
+          - dateTimeStamp: 1
+            minute: 1
           comment: comment
           id: 5
           myRate: 7
@@ -1026,19 +1252,48 @@ components:
         - tags
         - tags
         privateComment: true
+        characters:
+        - summary: summary
+          birthDay: 2
+          gender: 7
+          imageLoc: imageLoc
+          previewImageLoc: previewImageLoc
+          weight: weight
+          bloodType: bloodType
+          threeSize: threeSize
+          relation: relation
+          birthMonth: 3
+          birthYear: 9
+          name: name
+          id: 2
+          height: height
+        - summary: summary
+          birthDay: 2
+          gender: 7
+          imageLoc: imageLoc
+          previewImageLoc: previewImageLoc
+          weight: weight
+          bloodType: bloodType
+          threeSize: threeSize
+          relation: relation
+          birthMonth: 3
+          birthYear: 9
+          name: name
+          id: 2
+          height: height
         cnName: cnName
         playType: 5
         bgmId: bgmId
         name: name
         developer: developer
         playTime:
-        - dateTimeStamp: 9
-          minute: 3
-        - dateTimeStamp: 9
-          minute: 3
+        - dateTimeStamp: 1
+          minute: 1
+        - dateTimeStamp: 1
+          minute: 1
         comment: comment
         id: 0
-        myRate: 2
+        myRate: 4
       properties:
         id:
           format: int32
@@ -1087,6 +1342,11 @@ components:
           type: integer
         playType:
           $ref: '#/components/schemas/PlayType'
+        characters:
+          items:
+            $ref: '#/components/schemas/CharacterUpdateDto'
+          nullable: true
+          type: array
         playTime:
           items:
             $ref: '#/components/schemas/PlayLogDto'
@@ -1103,11 +1363,19 @@ components:
           nullable: true
           type: boolean
       type: object
+    Gender:
+      description: 性别，未知=0、男性=1、女性=2
+      enum:
+      - 0
+      - 1
+      - 2
+      format: int32
+      type: integer
     PlayLogDto:
       additionalProperties: false
       example:
-        dateTimeStamp: 9
-        minute: 3
+        dateTimeStamp: 1
+        minute: 1
       properties:
         dateTimeStamp:
           description: 游玩日期当天0点0分的时间戳

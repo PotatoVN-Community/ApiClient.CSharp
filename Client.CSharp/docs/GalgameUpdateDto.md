@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **Tags** | **List&lt;string&gt;** |  | [optional] 
 **TotalPlayTime** | **int?** |  | [optional] 
 **PlayType** | **PlayType** |  | [optional] 
+**Characters** | [**List&lt;CharacterUpdateDto&gt;**](CharacterUpdateDto.md) |  | [optional] 
 **PlayTime** | [**List&lt;PlayLogDto&gt;**](PlayLogDto.md) |  | [optional] 
 **Comment** | **string** |  | [optional] 
 **MyRate** | **int?** |  | [optional] 

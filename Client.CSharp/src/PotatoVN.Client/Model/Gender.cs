@@ -27,9 +27,10 @@ using OpenAPIDateConverter = PotatoVN.Client.Client.OpenAPIDateConverter;
 namespace PotatoVN.Client.Model
 {
     /// <summary>
-    /// Defines DayOfWeek
+    /// 性别，未知&#x3D;0、男性&#x3D;1、女性&#x3D;2
     /// </summary>
-    public enum DayOfWeek
+    /// <value>性别，未知&#x3D;0、男性&#x3D;1、女性&#x3D;2</value>
+    public enum Gender
     {
         /// <summary>
         /// Enum NUMBER_0 for value: 0
@@ -44,27 +45,7 @@ namespace PotatoVN.Client.Model
         /// <summary>
         /// Enum NUMBER_2 for value: 2
         /// </summary>
-        NUMBER_2 = 2,
-
-        /// <summary>
-        /// Enum NUMBER_3 for value: 3
-        /// </summary>
-        NUMBER_3 = 3,
-
-        /// <summary>
-        /// Enum NUMBER_4 for value: 4
-        /// </summary>
-        NUMBER_4 = 4,
-
-        /// <summary>
-        /// Enum NUMBER_5 for value: 5
-        /// </summary>
-        NUMBER_5 = 5,
-
-        /// <summary>
-        /// Enum NUMBER_6 for value: 6
-        /// </summary>
-        NUMBER_6 = 6
+        NUMBER_2 = 2
     }
 
 }
