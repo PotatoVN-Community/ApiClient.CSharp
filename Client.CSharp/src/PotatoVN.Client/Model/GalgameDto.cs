@@ -42,6 +42,7 @@ namespace PotatoVN.Client.Model
         /// Initializes a new instance of the <see cref="GalgameDto" /> class.
         /// </summary>
         /// <param name="id">id.</param>
+        /// <param name="characterLastChangedTimeStamp">characterLastChangedTimeStamp.</param>
         /// <param name="bgmId">bgmId.</param>
         /// <param name="vndbId">vndbId.</param>
         /// <param name="name">name.</param>
@@ -60,9 +61,10 @@ namespace PotatoVN.Client.Model
         /// <param name="comment">comment.</param>
         /// <param name="myRate">myRate.</param>
         /// <param name="privateComment">privateComment.</param>
-        public GalgameDto(int id = default(int), string bgmId = default(string), string vndbId = default(string), string name = default(string), string cnName = default(string), string description = default(string), string developer = default(string), string expectedPlayTime = default(string), float rating = default(float), long releasedDateTimeStamp = default(long), string imageUrl = default(string), List<string> tags = default(List<string>), List<CharacterDto> characters = default(List<CharacterDto>), List<PlayLogDto> playTime = default(List<PlayLogDto>), int totalPlayTime = default(int), PlayType? playType = default(PlayType?), string comment = default(string), int myRate = default(int), bool privateComment = default(bool))
+        public GalgameDto(int id = default(int), long characterLastChangedTimeStamp = default(long), string bgmId = default(string), string vndbId = default(string), string name = default(string), string cnName = default(string), string description = default(string), string developer = default(string), string expectedPlayTime = default(string), float rating = default(float), long releasedDateTimeStamp = default(long), string imageUrl = default(string), List<string> tags = default(List<string>), List<CharacterDto> characters = default(List<CharacterDto>), List<PlayLogDto> playTime = default(List<PlayLogDto>), int totalPlayTime = default(int), PlayType? playType = default(PlayType?), string comment = default(string), int myRate = default(int), bool privateComment = default(bool))
         {
             this.Id = id;
+            this.CharacterLastChangedTimeStamp = characterLastChangedTimeStamp;
             this.BgmId = bgmId;
             this.VndbId = vndbId;
             this.Name = name;
@@ -88,6 +90,12 @@ namespace PotatoVN.Client.Model
         /// </summary>
         [DataMember(Name = "id", EmitDefaultValue = false)]
         public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CharacterLastChangedTimeStamp
+        /// </summary>
+        [DataMember(Name = "characterLastChangedTimeStamp", EmitDefaultValue = false)]
+        public long CharacterLastChangedTimeStamp { get; set; }
 
         /// <summary>
         /// Gets or Sets BgmId
@@ -200,6 +208,7 @@ namespace PotatoVN.Client.Model
             StringBuilder sb = new StringBuilder();
             sb.Append("class GalgameDto {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("  CharacterLastChangedTimeStamp: ").Append(CharacterLastChangedTimeStamp).Append("\n");
             sb.Append("  BgmId: ").Append(BgmId).Append("\n");
             sb.Append("  VndbId: ").Append(VndbId).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");

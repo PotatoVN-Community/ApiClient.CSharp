@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **int** |  | [optional] 
+**CharacterLastChangedTimeStamp** | **long** |  | [optional] 
 **BgmId** | **string** |  | [optional] 
 **VndbId** | **string** |  | [optional] 
 **Name** | **string** |  | [optional] 

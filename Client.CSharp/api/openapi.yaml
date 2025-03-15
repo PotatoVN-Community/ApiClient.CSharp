@@ -771,18 +771,18 @@ components:
       additionalProperties: false
       example:
         summary: summary
-        birthDay: 7
-        gender: 3
+        birthDay: 1
+        gender: 2
         weight: weight
         bloodType: bloodType
         threeSize: threeSize
         relation: relation
-        birthMonth: 4
-        birthYear: 2
+        birthMonth: 7
+        birthYear: 4
         previewImageUrl: previewImageUrl
         imageUrl: imageUrl
         name: name
-        id: 9
+        id: 3
         height: height
       properties:
         id:
@@ -989,47 +989,48 @@ components:
     GalgameDto:
       additionalProperties: false
       example:
-        releasedDateTimeStamp: 7
+        releasedDateTimeStamp: 9
         expectedPlayTime: expectedPlayTime
-        rating: 2.302136
+        rating: 7.0614014
         vndbId: vndbId
         description: description
-        totalPlayTime: 1
+        totalPlayTime: 6
+        characterLastChangedTimeStamp: 2
         tags:
         - tags
         - tags
         privateComment: true
         characters:
         - summary: summary
-          birthDay: 7
-          gender: 3
+          birthDay: 1
+          gender: 2
           weight: weight
           bloodType: bloodType
           threeSize: threeSize
           relation: relation
-          birthMonth: 4
-          birthYear: 2
+          birthMonth: 7
+          birthYear: 4
           previewImageUrl: previewImageUrl
           imageUrl: imageUrl
           name: name
-          id: 9
+          id: 3
           height: height
         - summary: summary
-          birthDay: 7
-          gender: 3
+          birthDay: 1
+          gender: 2
           weight: weight
           bloodType: bloodType
           threeSize: threeSize
           relation: relation
-          birthMonth: 4
-          birthYear: 2
+          birthMonth: 7
+          birthYear: 4
           previewImageUrl: previewImageUrl
           imageUrl: imageUrl
           name: name
-          id: 9
+          id: 3
           height: height
         cnName: cnName
-        playType: 6
+        playType: 7
         bgmId: bgmId
         imageUrl: imageUrl
         name: name
@@ -1041,10 +1042,13 @@ components:
           minute: 1
         comment: comment
         id: 5
-        myRate: 7
+        myRate: 1
       properties:
         id:
           format: int32
+          type: integer
+        characterLastChangedTimeStamp:
+          format: int64
           type: integer
         bgmId:
           nullable: true
@@ -1113,47 +1117,48 @@ components:
         cnt: 0
         pageSize: 5
         items:
-        - releasedDateTimeStamp: 7
+        - releasedDateTimeStamp: 9
           expectedPlayTime: expectedPlayTime
-          rating: 2.302136
+          rating: 7.0614014
           vndbId: vndbId
           description: description
-          totalPlayTime: 1
+          totalPlayTime: 6
+          characterLastChangedTimeStamp: 2
           tags:
           - tags
           - tags
           privateComment: true
           characters:
           - summary: summary
-            birthDay: 7
-            gender: 3
+            birthDay: 1
+            gender: 2
             weight: weight
             bloodType: bloodType
             threeSize: threeSize
             relation: relation
-            birthMonth: 4
-            birthYear: 2
+            birthMonth: 7
+            birthYear: 4
             previewImageUrl: previewImageUrl
             imageUrl: imageUrl
             name: name
-            id: 9
+            id: 3
             height: height
           - summary: summary
-            birthDay: 7
-            gender: 3
+            birthDay: 1
+            gender: 2
             weight: weight
             bloodType: bloodType
             threeSize: threeSize
             relation: relation
-            birthMonth: 4
-            birthYear: 2
+            birthMonth: 7
+            birthYear: 4
             previewImageUrl: previewImageUrl
             imageUrl: imageUrl
             name: name
-            id: 9
+            id: 3
             height: height
           cnName: cnName
-          playType: 6
+          playType: 7
           bgmId: bgmId
           imageUrl: imageUrl
           name: name
@@ -1165,48 +1170,49 @@ components:
             minute: 1
           comment: comment
           id: 5
-          myRate: 7
-        - releasedDateTimeStamp: 7
+          myRate: 1
+        - releasedDateTimeStamp: 9
           expectedPlayTime: expectedPlayTime
-          rating: 2.302136
+          rating: 7.0614014
           vndbId: vndbId
           description: description
-          totalPlayTime: 1
+          totalPlayTime: 6
+          characterLastChangedTimeStamp: 2
           tags:
           - tags
           - tags
           privateComment: true
           characters:
           - summary: summary
-            birthDay: 7
-            gender: 3
+            birthDay: 1
+            gender: 2
             weight: weight
             bloodType: bloodType
             threeSize: threeSize
             relation: relation
-            birthMonth: 4
-            birthYear: 2
+            birthMonth: 7
+            birthYear: 4
             previewImageUrl: previewImageUrl
             imageUrl: imageUrl
             name: name
-            id: 9
+            id: 3
             height: height
           - summary: summary
-            birthDay: 7
-            gender: 3
+            birthDay: 1
+            gender: 2
             weight: weight
             bloodType: bloodType
             threeSize: threeSize
             relation: relation
-            birthMonth: 4
-            birthYear: 2
+            birthMonth: 7
+            birthYear: 4
             previewImageUrl: previewImageUrl
             imageUrl: imageUrl
             name: name
-            id: 9
+            id: 3
             height: height
           cnName: cnName
-          playType: 6
+          playType: 7
           bgmId: bgmId
           imageUrl: imageUrl
           name: name
@@ -1218,7 +1224,7 @@ components:
             minute: 1
           comment: comment
           id: 5
-          myRate: 7
+          myRate: 1
       properties:
         cnt:
           format: int32
