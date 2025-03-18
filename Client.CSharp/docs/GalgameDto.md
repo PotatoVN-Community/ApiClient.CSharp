@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **ImageUrl** | **string** |  | [optional] 
 **Tags** | **List&lt;string&gt;** |  | [optional] 
 **Characters** | [**List&lt;CharacterDto&gt;**](CharacterDto.md) |  | [optional] 
+**Staffs** | [**List&lt;StaffGameDto&gt;**](StaffGameDto.md) |  | [optional] 
 **PlayTime** | [**List&lt;PlayLogDto&gt;**](PlayLogDto.md) |  | [optional] 
 **TotalPlayTime** | **int** |  | [optional] 
 **PlayType** | **PlayType** |  | [optional] 

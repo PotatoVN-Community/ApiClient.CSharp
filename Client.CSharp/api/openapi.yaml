@@ -1,7 +1,10 @@
 openapi: 3.0.1
 info:
+  description: |-
+    PotatoVN 同步服务器
+    最新更新：支持staff同步
   title: PotatoVN.Server
-  version: v1.1
+  version: v1.2
 servers:
 - url: /
 paths:
@@ -441,6 +444,109 @@ paths:
       summary: 获取服务器信息
       tags:
       - server
+  /staff:
+    get:
+      description: "获取最后一次更新时间严格晚于给定时间戳的staff列表<br />\r\n若includeDeleted=true，被删除的\
+        staff也会返回，删除的staff的IsDeleted字段为true"
+      parameters:
+      - explode: true
+        in: query
+        name: timestamp
+        required: true
+        schema:
+          format: int64
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageIndex
+        required: false
+        schema:
+          default: 0
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          default: 10
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: includeDeleted
+        required: false
+        schema:
+          default: true
+          type: boolean
+        style: form
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StaffDtoPagedResult'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffDtoPagedResult'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StaffDtoPagedResult'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "400":
+          description: pageIndex小于0或pageSize小于等于0
+      security:
+      - oauth2: []
+      summary: 获取staff列表
+      tags:
+      - staff
+    patch:
+      description: "所有字段均可选，覆盖原字段 <br /><b>若Id没有填或为0，则认为是新建staff</b><br />\r\n其中IsDelete表\
+        示是否要删除这个staff<br />"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/StaffUpdateDto'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/StaffUpdateDto'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/StaffUpdateDto'
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/StaffDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StaffDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/StaffDto'
+          description: Success
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: 填入了id字段，但不存在具有该id的staff
+        "400":
+          description: 调用方不是该Staff所属者
+      security:
+      - oauth2: []
+      summary: 新建或更新staff
+      tags:
+      - staff
   /user:
     get:
       description: "<b>该命令需要管理员权限</b>\r\n<br />\r\n            pageIndex从0开始<br />\r\
@@ -767,6 +873,19 @@ components:
           format: int32
           type: integer
       type: object
+    Career:
+      description: "也会作为某个staff与作品的关系\r\n作家：1\r\n画师：2\r\n音乐家：3\r\n声优：4\r\n制作人：5\r\n\
+        程序员：6\r\nUnknown：114514"
+      enum:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 114514
+      format: int32
+      type: integer
     CharacterDto:
       additionalProperties: false
       example:
@@ -994,7 +1113,7 @@ components:
         rating: 7.0614014
         vndbId: vndbId
         description: description
-        totalPlayTime: 6
+        totalPlayTime: 4
         characterLastChangedTimeStamp: 2
         tags:
         - tags
@@ -1030,19 +1149,30 @@ components:
           id: 3
           height: height
         cnName: cnName
-        playType: 7
+        playType: 5
         bgmId: bgmId
         imageUrl: imageUrl
         name: name
         developer: developer
         playTime:
-        - dateTimeStamp: 1
+        - dateTimeStamp: 7
           minute: 1
-        - dateTimeStamp: 1
+        - dateTimeStamp: 7
           minute: 1
         comment: comment
         id: 5
-        myRate: 1
+        myRate: 9
+        staffs:
+        - gameId: 1
+          staffId: 1
+          relation:
+          - 6
+          - 6
+        - gameId: 1
+          staffId: 1
+          relation:
+          - 6
+          - 6
       properties:
         id:
           format: int32
@@ -1090,6 +1220,11 @@ components:
             $ref: '#/components/schemas/CharacterDto'
           nullable: true
           type: array
+        staffs:
+          items:
+            $ref: '#/components/schemas/StaffGameDto'
+          nullable: true
+          type: array
         playTime:
           items:
             $ref: '#/components/schemas/PlayLogDto'
@@ -1122,7 +1257,7 @@ components:
           rating: 7.0614014
           vndbId: vndbId
           description: description
-          totalPlayTime: 6
+          totalPlayTime: 4
           characterLastChangedTimeStamp: 2
           tags:
           - tags
@@ -1158,25 +1293,36 @@ components:
             id: 3
             height: height
           cnName: cnName
-          playType: 7
+          playType: 5
           bgmId: bgmId
           imageUrl: imageUrl
           name: name
           developer: developer
           playTime:
-          - dateTimeStamp: 1
+          - dateTimeStamp: 7
             minute: 1
-          - dateTimeStamp: 1
+          - dateTimeStamp: 7
             minute: 1
           comment: comment
           id: 5
-          myRate: 1
+          myRate: 9
+          staffs:
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
         - releasedDateTimeStamp: 9
           expectedPlayTime: expectedPlayTime
           rating: 7.0614014
           vndbId: vndbId
           description: description
-          totalPlayTime: 6
+          totalPlayTime: 4
           characterLastChangedTimeStamp: 2
           tags:
           - tags
@@ -1212,19 +1358,30 @@ components:
             id: 3
             height: height
           cnName: cnName
-          playType: 7
+          playType: 5
           bgmId: bgmId
           imageUrl: imageUrl
           name: name
           developer: developer
           playTime:
-          - dateTimeStamp: 1
+          - dateTimeStamp: 7
             minute: 1
-          - dateTimeStamp: 1
+          - dateTimeStamp: 7
             minute: 1
           comment: comment
           id: 5
-          myRate: 1
+          myRate: 9
+          staffs:
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
       properties:
         cnt:
           format: int32
@@ -1293,9 +1450,9 @@ components:
         name: name
         developer: developer
         playTime:
-        - dateTimeStamp: 1
+        - dateTimeStamp: 7
           minute: 1
-        - dateTimeStamp: 1
+        - dateTimeStamp: 7
           minute: 1
         comment: comment
         id: 0
@@ -1380,7 +1537,7 @@ components:
     PlayLogDto:
       additionalProperties: false
       example:
-        dateTimeStamp: 1
+        dateTimeStamp: 7
         minute: 1
       properties:
         dateTimeStamp:
@@ -1414,12 +1571,279 @@ components:
         bangumiLoginEnable:
           type: boolean
       type: object
+    StaffDto:
+      additionalProperties: false
+      example:
+        englishName: englishName
+        gender: 2
+        vndbId: vndbId
+        description: description
+        japaneseName: japaneseName
+        ymgalId: ymgalId
+        lastModifyTimestamp: 9
+        staffGames:
+        - gameId: 1
+          staffId: 1
+          relation:
+          - 6
+          - 6
+        - gameId: 1
+          staffId: 1
+          relation:
+          - 6
+          - 6
+        isDeleted: true
+        bgmId: bgmId
+        imageUrl: imageUrl
+        chineseName: chineseName
+        id: 5
+        birthDateTimestamp: 7
+      properties:
+        id:
+          format: int32
+          type: integer
+        isDeleted:
+          type: boolean
+        bgmId:
+          maxLength: 200
+          nullable: true
+          type: string
+        vndbId:
+          maxLength: 200
+          nullable: true
+          type: string
+        ymgalId:
+          maxLength: 200
+          nullable: true
+          type: string
+        japaneseName:
+          maxLength: 200
+          nullable: true
+          type: string
+        englishName:
+          maxLength: 200
+          nullable: true
+          type: string
+        chineseName:
+          maxLength: 200
+          nullable: true
+          type: string
+        gender:
+          $ref: '#/components/schemas/Gender'
+        description:
+          maxLength: 10000
+          nullable: true
+          type: string
+        birthDateTimestamp:
+          format: int64
+          type: integer
+        imageUrl:
+          nullable: true
+          type: string
+        lastModifyTimestamp:
+          format: int64
+          type: integer
+        staffGames:
+          items:
+            $ref: '#/components/schemas/StaffGameDto'
+          nullable: true
+          type: array
+      type: object
+    StaffDtoPagedResult:
+      additionalProperties: false
+      example:
+        pageCnt: 6
+        pageIndex: 1
+        cnt: 0
+        pageSize: 5
+        items:
+        - englishName: englishName
+          gender: 2
+          vndbId: vndbId
+          description: description
+          japaneseName: japaneseName
+          ymgalId: ymgalId
+          lastModifyTimestamp: 9
+          staffGames:
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
+          isDeleted: true
+          bgmId: bgmId
+          imageUrl: imageUrl
+          chineseName: chineseName
+          id: 5
+          birthDateTimestamp: 7
+        - englishName: englishName
+          gender: 2
+          vndbId: vndbId
+          description: description
+          japaneseName: japaneseName
+          ymgalId: ymgalId
+          lastModifyTimestamp: 9
+          staffGames:
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
+          - gameId: 1
+            staffId: 1
+            relation:
+            - 6
+            - 6
+          isDeleted: true
+          bgmId: bgmId
+          imageUrl: imageUrl
+          chineseName: chineseName
+          id: 5
+          birthDateTimestamp: 7
+      properties:
+        cnt:
+          format: int32
+          type: integer
+        pageCnt:
+          format: int32
+          type: integer
+        pageIndex:
+          format: int32
+          type: integer
+        pageSize:
+          format: int32
+          type: integer
+        items:
+          items:
+            $ref: '#/components/schemas/StaffDto'
+          nullable: true
+          type: array
+      type: object
+    StaffGameDto:
+      additionalProperties: false
+      example:
+        gameId: 1
+        staffId: 1
+        relation:
+        - 6
+        - 6
+      properties:
+        staffId:
+          format: int32
+          type: integer
+        gameId:
+          format: int32
+          type: integer
+        relation:
+          items:
+            $ref: '#/components/schemas/Career'
+          nullable: true
+          type: array
+      type: object
+    StaffGameUpdateDto:
+      additionalProperties: false
+      example:
+        gameId: 5
+        relation:
+        - 5
+        - 5
+      properties:
+        gameId:
+          format: int32
+          type: integer
+        relation:
+          items:
+            $ref: '#/components/schemas/Career'
+          nullable: true
+          type: array
+      type: object
+    StaffUpdateDto:
+      additionalProperties: false
+      example:
+        englishName: englishName
+        gender: 6
+        imageLoc: imageLoc
+        vndbId: vndbId
+        description: description
+        japaneseName: japaneseName
+        ymgalId: ymgalId
+        staffGames:
+        - gameId: 5
+          relation:
+          - 5
+          - 5
+        - gameId: 5
+          relation:
+          - 5
+          - 5
+        isDeleted: true
+        bgmId: bgmId
+        chineseName: chineseName
+        id: 0
+        birthDateTimestamp: 1
+      properties:
+        id:
+          format: int32
+          nullable: true
+          type: integer
+        isDeleted:
+          nullable: true
+          type: boolean
+        bgmId:
+          maxLength: 200
+          nullable: true
+          type: string
+        vndbId:
+          maxLength: 200
+          nullable: true
+          type: string
+        ymgalId:
+          maxLength: 200
+          nullable: true
+          type: string
+        japaneseName:
+          maxLength: 200
+          nullable: true
+          type: string
+        englishName:
+          maxLength: 200
+          nullable: true
+          type: string
+        chineseName:
+          maxLength: 200
+          nullable: true
+          type: string
+        gender:
+          $ref: '#/components/schemas/Gender'
+        description:
+          maxLength: 10000
+          nullable: true
+          type: string
+        birthDateTimestamp:
+          format: int64
+          nullable: true
+          type: integer
+        imageLoc:
+          nullable: true
+          type: string
+        staffGames:
+          items:
+            $ref: '#/components/schemas/StaffGameUpdateDto'
+          nullable: true
+          type: array
+      type: object
     UserDto:
       additionalProperties: false
       example:
         usedSpace: 5
         lastGalChangedTimeStamp: 2
         userDisplayName: userDisplayName
+        lastStaffChangedTimeStamp: 7
         id: 0
         avatar: avatar
         totalSpace: 5
@@ -1455,6 +1879,9 @@ components:
         lastGalChangedTimeStamp:
           format: int64
           type: integer
+        lastStaffChangedTimeStamp:
+          format: int64
+          type: integer
       type: object
     UserDtoPagedResult:
       additionalProperties: false
@@ -1467,6 +1894,7 @@ components:
         - usedSpace: 5
           lastGalChangedTimeStamp: 2
           userDisplayName: userDisplayName
+          lastStaffChangedTimeStamp: 7
           id: 0
           avatar: avatar
           totalSpace: 5
@@ -1476,6 +1904,7 @@ components:
         - usedSpace: 5
           lastGalChangedTimeStamp: 2
           userDisplayName: userDisplayName
+          lastStaffChangedTimeStamp: 7
           id: 0
           avatar: avatar
           totalSpace: 5
@@ -1580,6 +2009,7 @@ components:
           usedSpace: 5
           lastGalChangedTimeStamp: 2
           userDisplayName: userDisplayName
+          lastStaffChangedTimeStamp: 7
           id: 0
           avatar: avatar
           totalSpace: 5

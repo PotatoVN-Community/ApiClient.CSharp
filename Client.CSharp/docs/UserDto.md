@@ -13,6 +13,7 @@ Name | Type | Description | Notes
 **UsedSpace** | **long** |  | [optional] 
 **TotalSpace** | **long** |  | [optional] 
 **LastGalChangedTimeStamp** | **long** |  | [optional] 
+**LastStaffChangedTimeStamp** | **long** |  | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
