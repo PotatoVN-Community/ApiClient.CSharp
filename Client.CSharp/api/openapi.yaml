@@ -1581,6 +1581,7 @@ components:
         japaneseName: japaneseName
         ymgalId: ymgalId
         lastModifyTimestamp: 9
+        externalImageLink: externalImageLink
         staffGames:
         - gameId: 1
           staffId: 1
@@ -1637,6 +1638,10 @@ components:
         birthDateTimestamp:
           format: int64
           type: integer
+        externalImageLink:
+          maxLength: 2000
+          nullable: true
+          type: string
         imageUrl:
           nullable: true
           type: string
@@ -1664,6 +1669,7 @@ components:
           japaneseName: japaneseName
           ymgalId: ymgalId
           lastModifyTimestamp: 9
+          externalImageLink: externalImageLink
           staffGames:
           - gameId: 1
             staffId: 1
@@ -1688,6 +1694,7 @@ components:
           japaneseName: japaneseName
           ymgalId: ymgalId
           lastModifyTimestamp: 9
+          externalImageLink: externalImageLink
           staffGames:
           - gameId: 1
             staffId: 1
@@ -1772,6 +1779,7 @@ components:
         description: description
         japaneseName: japaneseName
         ymgalId: ymgalId
+        externalImageLink: externalImageLink
         staffGames:
         - gameId: 5
           relation:
@@ -1828,6 +1836,10 @@ components:
           format: int64
           nullable: true
           type: integer
+        externalImageLink:
+          maxLength: 2000
+          nullable: true
+          type: string
         imageLoc:
           nullable: true
           type: string

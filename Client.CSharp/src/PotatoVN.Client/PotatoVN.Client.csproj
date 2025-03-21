@@ -12,7 +12,7 @@
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>No Copyright</Copyright>
     <RootNamespace>PotatoVN.Client</RootNamespace>
-    <Version>1.0.7</Version>
+    <Version>1.0.8</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\PotatoVN.Client.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/GoldenPotato137/PotatoVN</RepositoryUrl>
     <RepositoryType>git</RepositoryType>

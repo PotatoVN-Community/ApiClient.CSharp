@@ -52,9 +52,10 @@ namespace PotatoVN.Client.Model
         /// <param name="gender">gender.</param>
         /// <param name="description">description.</param>
         /// <param name="birthDateTimestamp">birthDateTimestamp.</param>
+        /// <param name="externalImageLink">externalImageLink.</param>
         /// <param name="imageLoc">imageLoc.</param>
         /// <param name="staffGames">staffGames.</param>
-        public StaffUpdateDto(int? id = default(int?), bool? isDeleted = default(bool?), string bgmId = default(string), string vndbId = default(string), string ymgalId = default(string), string japaneseName = default(string), string englishName = default(string), string chineseName = default(string), Gender? gender = default(Gender?), string description = default(string), long? birthDateTimestamp = default(long?), string imageLoc = default(string), List<StaffGameUpdateDto> staffGames = default(List<StaffGameUpdateDto>))
+        public StaffUpdateDto(int? id = default(int?), bool? isDeleted = default(bool?), string bgmId = default(string), string vndbId = default(string), string ymgalId = default(string), string japaneseName = default(string), string englishName = default(string), string chineseName = default(string), Gender? gender = default(Gender?), string description = default(string), long? birthDateTimestamp = default(long?), string externalImageLink = default(string), string imageLoc = default(string), List<StaffGameUpdateDto> staffGames = default(List<StaffGameUpdateDto>))
         {
             this.Id = id;
             this.IsDeleted = isDeleted;
@@ -67,6 +68,7 @@ namespace PotatoVN.Client.Model
             this.Gender = gender;
             this.Description = description;
             this.BirthDateTimestamp = birthDateTimestamp;
+            this.ExternalImageLink = externalImageLink;
             this.ImageLoc = imageLoc;
             this.StaffGames = staffGames;
         }
@@ -132,6 +134,12 @@ namespace PotatoVN.Client.Model
         public long? BirthDateTimestamp { get; set; }
 
         /// <summary>
+        /// Gets or Sets ExternalImageLink
+        /// </summary>
+        [DataMember(Name = "externalImageLink", EmitDefaultValue = true)]
+        public string ExternalImageLink { get; set; }
+
+        /// <summary>
         /// Gets or Sets ImageLoc
         /// </summary>
         [DataMember(Name = "imageLoc", EmitDefaultValue = true)]
@@ -162,6 +170,7 @@ namespace PotatoVN.Client.Model
             sb.Append("  Gender: ").Append(Gender).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  BirthDateTimestamp: ").Append(BirthDateTimestamp).Append("\n");
+            sb.Append("  ExternalImageLink: ").Append(ExternalImageLink).Append("\n");
             sb.Append("  ImageLoc: ").Append(ImageLoc).Append("\n");
             sb.Append("  StaffGames: ").Append(StaffGames).Append("\n");
             sb.Append("}\n");
@@ -224,6 +233,12 @@ namespace PotatoVN.Client.Model
             if (this.Description != null && this.Description.Length > 10000)
             {
                 yield return new ValidationResult("Invalid value for Description, length must be less than 10000.", new [] { "Description" });
+            }
+
+            // ExternalImageLink (string) maxLength
+            if (this.ExternalImageLink != null && this.ExternalImageLink.Length > 2000)
+            {
+                yield return new ValidationResult("Invalid value for ExternalImageLink, length must be less than 2000.", new [] { "ExternalImageLink" });
             }
 
             yield break;

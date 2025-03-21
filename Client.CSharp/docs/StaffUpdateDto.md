@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **Gender** | **Gender** |  | [optional] 
 **Description** | **string** |  | [optional] 
 **BirthDateTimestamp** | **long?** |  | [optional] 
+**ExternalImageLink** | **string** |  | [optional] 
 **ImageLoc** | **string** |  | [optional] 
 **StaffGames** | [**List&lt;StaffGameUpdateDto&gt;**](StaffGameUpdateDto.md) |  | [optional] 
 

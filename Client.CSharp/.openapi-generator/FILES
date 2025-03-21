@@ -40,13 +40,6 @@ docs/UserWithTokenDto.md
 docs/WeatherForecast.md
 docs/WeatherForecastApi.md
 git_push.sh
-src/PotatoVN.Client.Test/Api/StaffApiTests.cs
-src/PotatoVN.Client.Test/Model/CareerTests.cs
-src/PotatoVN.Client.Test/Model/StaffDtoPagedResultTests.cs
-src/PotatoVN.Client.Test/Model/StaffDtoTests.cs
-src/PotatoVN.Client.Test/Model/StaffGameDtoTests.cs
-src/PotatoVN.Client.Test/Model/StaffGameUpdateDtoTests.cs
-src/PotatoVN.Client.Test/Model/StaffUpdateDtoTests.cs
 src/PotatoVN.Client.Test/PotatoVN.Client.Test.csproj
 src/PotatoVN.Client/Api/BangumiApi.cs
 src/PotatoVN.Client/Api/GalgameApi.cs
