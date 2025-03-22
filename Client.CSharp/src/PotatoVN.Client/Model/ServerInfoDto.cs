@@ -38,11 +38,15 @@ namespace PotatoVN.Client.Model
         /// <param name="bangumiOAuth2Enable">bangumiOAuth2Enable.</param>
         /// <param name="defaultLoginEnable">defaultLoginEnable.</param>
         /// <param name="bangumiLoginEnable">bangumiLoginEnable.</param>
-        public ServerInfoDto(bool bangumiOAuth2Enable = default(bool), bool defaultLoginEnable = default(bool), bool bangumiLoginEnable = default(bool))
+        /// <param name="galgameStaffAvailable">是否支持同步GalgameStaff.</param>
+        /// <param name="staffEnable">是否支持同步Staff.</param>
+        public ServerInfoDto(bool bangumiOAuth2Enable = default(bool), bool defaultLoginEnable = default(bool), bool bangumiLoginEnable = default(bool), bool galgameStaffAvailable = default(bool), bool staffEnable = default(bool))
         {
             this.BangumiOAuth2Enable = bangumiOAuth2Enable;
             this.DefaultLoginEnable = defaultLoginEnable;
             this.BangumiLoginEnable = bangumiLoginEnable;
+            this.GalgameStaffAvailable = galgameStaffAvailable;
+            this.StaffEnable = staffEnable;
         }
 
         /// <summary>
@@ -64,6 +68,20 @@ namespace PotatoVN.Client.Model
         public bool BangumiLoginEnable { get; set; }
 
         /// <summary>
+        /// 是否支持同步GalgameStaff
+        /// </summary>
+        /// <value>是否支持同步GalgameStaff</value>
+        [DataMember(Name = "galgameStaffAvailable", EmitDefaultValue = true)]
+        public bool GalgameStaffAvailable { get; set; }
+
+        /// <summary>
+        /// 是否支持同步Staff
+        /// </summary>
+        /// <value>是否支持同步Staff</value>
+        [DataMember(Name = "staffEnable", EmitDefaultValue = true)]
+        public bool StaffEnable { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -74,6 +92,8 @@ namespace PotatoVN.Client.Model
             sb.Append("  BangumiOAuth2Enable: ").Append(BangumiOAuth2Enable).Append("\n");
             sb.Append("  DefaultLoginEnable: ").Append(DefaultLoginEnable).Append("\n");
             sb.Append("  BangumiLoginEnable: ").Append(BangumiLoginEnable).Append("\n");
+            sb.Append("  GalgameStaffAvailable: ").Append(GalgameStaffAvailable).Append("\n");
+            sb.Append("  StaffEnable: ").Append(StaffEnable).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }

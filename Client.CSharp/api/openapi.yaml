@@ -1563,12 +1563,20 @@ components:
         bangumiOAuth2Enable: true
         bangumiLoginEnable: true
         defaultLoginEnable: true
+        galgameStaffAvailable: true
+        staffEnable: true
       properties:
         bangumiOAuth2Enable:
           type: boolean
         defaultLoginEnable:
           type: boolean
         bangumiLoginEnable:
+          type: boolean
+        galgameStaffAvailable:
+          description: 是否支持同步GalgameStaff
+          type: boolean
+        staffEnable:
+          description: 是否支持同步Staff
           type: boolean
       type: object
     StaffDto:
