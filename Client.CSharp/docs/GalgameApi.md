@@ -9,6 +9,7 @@ All URIs are relative to *http://localhost*
 | [**GalgameGalgameIdDelete**](GalgameApi.md#galgamegalgameiddelete) | **DELETE** /galgame/{galgameId} | 删除游戏 |
 | [**GalgameGalgameIdPlaylogPatch**](GalgameApi.md#galgamegalgameidplaylogpatch) | **PATCH** /galgame/{galgameId}/playlog | 添加游玩记录或游玩时长 |
 | [**GalgameGet**](GalgameApi.md#galgameget) | **GET** /galgame | 获取galgame列表 |
+| [**GalgameIdGet**](GalgameApi.md#galgameidget) | **GET** /galgame/{id} | 获取单个游戏的完整信息 |
 | [**GalgamePatch**](GalgameApi.md#galgamepatch) | **PATCH** /galgame | 新建或更新galgame |
 
 <a id="galgamedelete"></a>
@@ -518,6 +519,110 @@ catch (ApiException e)
 | **401** | Unauthorized |  -  |
 | **403** | Forbidden |  -  |
 | **400** | pageIndex小于0或pageSize小于等于0 |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a id="galgameidget"></a>
+# **GalgameIdGet**
+> GalgameDto GalgameIdGet (int id)
+
+获取单个游戏的完整信息
+
+包含角色、游玩时间等所有相关信息
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using PotatoVN.Client.Api;
+using PotatoVN.Client.Client;
+using PotatoVN.Client.Model;
+
+namespace Example
+{
+    public class GalgameIdGetExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "http://localhost";
+            // Configure API key authorization: oauth2
+            config.AddApiKey("Authorization", "YOUR_API_KEY");
+            // Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
+            // config.AddApiKeyPrefix("Authorization", "Bearer");
+
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new GalgameApi(httpClient, config, httpClientHandler);
+            var id = 56;  // int | 游戏ID
+
+            try
+            {
+                // 获取单个游戏的完整信息
+                GalgameDto result = apiInstance.GalgameIdGet(id);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling GalgameApi.GalgameIdGet: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+#### Using the GalgameIdGetWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // 获取单个游戏的完整信息
+    ApiResponse<GalgameDto> response = apiInstance.GalgameIdGetWithHttpInfo(id);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling GalgameApi.GalgameIdGetWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
+### Parameters
+
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **id** | **int** | 游戏ID |  |
+
+### Return type
+
+[**GalgameDto**](GalgameDto.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/plain, application/json, text/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | 成功获取游戏信息 |  -  |
+| **401** | Unauthorized |  -  |
+| **403** | Forbidden |  -  |
+| **404** | 指定ID的游戏不存在 |  -  |
+| **400** | 调用方不是该游戏所属者 |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 

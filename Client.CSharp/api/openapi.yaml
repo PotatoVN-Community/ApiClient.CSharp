@@ -2,9 +2,9 @@ openapi: 3.0.1
 info:
   description: |-
     PotatoVN 同步服务器
-    最新更新：支持staff同步
+    最新更新：galgame新增playcount字段
   title: PotatoVN.Server
-  version: v1.2
+  version: v1.4
 servers:
 - url: /
 paths:
@@ -177,6 +177,45 @@ paths:
       security:
       - oauth2: []
       summary: 新建或更新galgame
+      tags:
+      - galgame
+  /galgame/{id}:
+    get:
+      description: 包含角色、游玩时间等所有相关信息
+      parameters:
+      - description: 游戏ID
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+        style: simple
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/GalgameDto'
+          description: 成功获取游戏信息
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden
+        "404":
+          description: 指定ID的游戏不存在
+        "400":
+          description: 调用方不是该游戏所属者
+      security:
+      - oauth2: []
+      summary: 获取单个游戏的完整信息
       tags:
       - galgame
   /galgame/deleted:
@@ -1444,6 +1483,7 @@ components:
           name: name
           id: 2
           height: height
+        playCount: 7
         cnName: cnName
         playType: 5
         bgmId: bgmId
@@ -1525,6 +1565,10 @@ components:
         privateComment:
           nullable: true
           type: boolean
+        playCount:
+          format: int32
+          nullable: true
+          type: integer
       type: object
     Gender:
       description: 性别，未知=0、男性=1、女性=2
