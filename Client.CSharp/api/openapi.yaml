@@ -4,7 +4,7 @@ info:
     PotatoVN 同步服务器
     最新更新：galgame新增playcount字段
   title: PotatoVN.Server
-  version: v1.4
+  version: v1.9+e6eef47b6566802324035dddd46b62dd41d90b75
 servers:
 - url: /
 paths:
@@ -23,13 +23,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/BangumiToken'
+                $ref: "#/components/schemas/BangumiToken"
             application/json:
               schema:
-                $ref: '#/components/schemas/BangumiToken'
+                $ref: "#/components/schemas/BangumiToken"
             text/json:
               schema:
-                $ref: '#/components/schemas/BangumiToken'
+                $ref: "#/components/schemas/BangumiToken"
           description: 成功，返回token信息
         "400":
           description: code无效
@@ -55,13 +55,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/BangumiToken'
+                $ref: "#/components/schemas/BangumiToken"
             application/json:
               schema:
-                $ref: '#/components/schemas/BangumiToken'
+                $ref: "#/components/schemas/BangumiToken"
             text/json:
               schema:
-                $ref: '#/components/schemas/BangumiToken'
+                $ref: "#/components/schemas/BangumiToken"
           description: 成功，返回token信息
         "400":
           description: code无效
@@ -120,13 +120,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GalgameDtoPagedResult'
+                $ref: "#/components/schemas/GalgameDtoPagedResult"
             application/json:
               schema:
-                $ref: '#/components/schemas/GalgameDtoPagedResult'
+                $ref: "#/components/schemas/GalgameDtoPagedResult"
             text/json:
               schema:
-                $ref: '#/components/schemas/GalgameDtoPagedResult'
+                $ref: "#/components/schemas/GalgameDtoPagedResult"
           description: Success
         "401":
           description: Unauthorized
@@ -146,25 +146,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/GalgameUpdateDto'
+              $ref: "#/components/schemas/GalgameUpdateDto"
           text/json:
             schema:
-              $ref: '#/components/schemas/GalgameUpdateDto'
+              $ref: "#/components/schemas/GalgameUpdateDto"
           application/*+json:
             schema:
-              $ref: '#/components/schemas/GalgameUpdateDto'
+              $ref: "#/components/schemas/GalgameUpdateDto"
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
           description: Success
         "401":
           description: Unauthorized
@@ -197,13 +197,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
           description: 成功获取游戏信息
         "401":
           description: Unauthorized
@@ -253,13 +253,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GalgameDeletedDtoPagedResult'
+                $ref: "#/components/schemas/GalgameDeletedDtoPagedResult"
             application/json:
               schema:
-                $ref: '#/components/schemas/GalgameDeletedDtoPagedResult'
+                $ref: "#/components/schemas/GalgameDeletedDtoPagedResult"
             text/json:
               schema:
-                $ref: '#/components/schemas/GalgameDeletedDtoPagedResult'
+                $ref: "#/components/schemas/GalgameDeletedDtoPagedResult"
           description: Success
         "401":
           description: Unauthorized
@@ -286,25 +286,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PlayLogDto'
+              $ref: "#/components/schemas/PlayLogDto"
           text/json:
             schema:
-              $ref: '#/components/schemas/PlayLogDto'
+              $ref: "#/components/schemas/PlayLogDto"
           application/*+json:
             schema:
-              $ref: '#/components/schemas/PlayLogDto'
+              $ref: "#/components/schemas/PlayLogDto"
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/GalgameDto'
+                $ref: "#/components/schemas/GalgameDto"
           description: Success
         "401":
           description: Unauthorized
@@ -446,13 +446,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
           description: Success
         "401":
           description: Unauthorized
@@ -472,13 +472,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/ServerInfoDto'
+                $ref: "#/components/schemas/ServerInfoDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/ServerInfoDto'
+                $ref: "#/components/schemas/ServerInfoDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/ServerInfoDto'
+                $ref: "#/components/schemas/ServerInfoDto"
           description: Success
       summary: 获取服务器信息
       tags:
@@ -527,13 +527,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/StaffDtoPagedResult'
+                $ref: "#/components/schemas/StaffDtoPagedResult"
             application/json:
               schema:
-                $ref: '#/components/schemas/StaffDtoPagedResult'
+                $ref: "#/components/schemas/StaffDtoPagedResult"
             text/json:
               schema:
-                $ref: '#/components/schemas/StaffDtoPagedResult'
+                $ref: "#/components/schemas/StaffDtoPagedResult"
           description: Success
         "401":
           description: Unauthorized
@@ -553,25 +553,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/StaffUpdateDto'
+              $ref: "#/components/schemas/StaffUpdateDto"
           text/json:
             schema:
-              $ref: '#/components/schemas/StaffUpdateDto'
+              $ref: "#/components/schemas/StaffUpdateDto"
           application/*+json:
             schema:
-              $ref: '#/components/schemas/StaffUpdateDto'
+              $ref: "#/components/schemas/StaffUpdateDto"
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/StaffDto'
+                $ref: "#/components/schemas/StaffDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/StaffDto'
+                $ref: "#/components/schemas/StaffDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/StaffDto'
+                $ref: "#/components/schemas/StaffDto"
           description: Success
         "401":
           description: Unauthorized
@@ -614,13 +614,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserDtoPagedResult'
+                $ref: "#/components/schemas/UserDtoPagedResult"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDtoPagedResult'
+                $ref: "#/components/schemas/UserDtoPagedResult"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserDtoPagedResult'
+                $ref: "#/components/schemas/UserDtoPagedResult"
           description: Success
         "401":
           description: Unauthorized
@@ -637,25 +637,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserRegisterDto'
+              $ref: "#/components/schemas/UserRegisterDto"
           text/json:
             schema:
-              $ref: '#/components/schemas/UserRegisterDto'
+              $ref: "#/components/schemas/UserRegisterDto"
           application/*+json:
             schema:
-              $ref: '#/components/schemas/UserRegisterDto'
+              $ref: "#/components/schemas/UserRegisterDto"
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
           description: Success
         "400":
           description: 该用户名已被占用
@@ -681,13 +681,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
           description: Success
         "401":
           description: Unauthorized
@@ -716,13 +716,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
           description: Success
         "401":
           description: Unauthorized
@@ -739,25 +739,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserModifyDto'
+              $ref: "#/components/schemas/UserModifyDto"
           text/json:
             schema:
-              $ref: '#/components/schemas/UserModifyDto'
+              $ref: "#/components/schemas/UserModifyDto"
           application/*+json:
             schema:
-              $ref: '#/components/schemas/UserModifyDto'
+              $ref: "#/components/schemas/UserModifyDto"
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserDto'
+                $ref: "#/components/schemas/UserDto"
           description: 成功，返回新的用户信息
         "401":
           description: Unauthorized
@@ -777,25 +777,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserLoginDto'
+              $ref: "#/components/schemas/UserLoginDto"
           text/json:
             schema:
-              $ref: '#/components/schemas/UserLoginDto'
+              $ref: "#/components/schemas/UserLoginDto"
           application/*+json:
             schema:
-              $ref: '#/components/schemas/UserLoginDto'
+              $ref: "#/components/schemas/UserLoginDto"
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
           description: 登录成功，返回token
         "400":
           description: 账户不存在或密码不正确
@@ -811,25 +811,25 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/UserLoginViaBgmDto'
+              $ref: "#/components/schemas/UserLoginViaBgmDto"
           text/json:
             schema:
-              $ref: '#/components/schemas/UserLoginViaBgmDto'
+              $ref: "#/components/schemas/UserLoginViaBgmDto"
           application/*+json:
             schema:
-              $ref: '#/components/schemas/UserLoginViaBgmDto'
+              $ref: "#/components/schemas/UserLoginViaBgmDto"
       responses:
         "200":
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
           description: 用户信息与token
         "400":
           description: token无效
@@ -848,13 +848,13 @@ paths:
           content:
             text/plain:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             application/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
             text/json:
               schema:
-                $ref: '#/components/schemas/UserWithTokenDto'
+                $ref: "#/components/schemas/UserWithTokenDto"
           description: Success
         "401":
           description: Unauthorized
@@ -874,17 +874,17 @@ paths:
             text/plain:
               schema:
                 items:
-                  $ref: '#/components/schemas/WeatherForecast'
+                  $ref: "#/components/schemas/WeatherForecast"
                 type: array
             application/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/WeatherForecast'
+                  $ref: "#/components/schemas/WeatherForecast"
                 type: array
             text/json:
               schema:
                 items:
-                  $ref: '#/components/schemas/WeatherForecast'
+                  $ref: "#/components/schemas/WeatherForecast"
                 type: array
           description: Success
       tags:
@@ -959,7 +959,7 @@ components:
           nullable: true
           type: string
         gender:
-          $ref: '#/components/schemas/Gender'
+          $ref: "#/components/schemas/Gender"
         birthYear:
           format: int32
           type: integer
@@ -1026,7 +1026,7 @@ components:
           nullable: true
           type: string
         gender:
-          $ref: '#/components/schemas/Gender'
+          $ref: "#/components/schemas/Gender"
         birthYear:
           format: int32
           type: integer
@@ -1079,7 +1079,7 @@ components:
           format: int32
           type: integer
         dayOfWeek:
-          $ref: '#/components/schemas/DayOfWeek'
+          $ref: "#/components/schemas/DayOfWeek"
         dayOfYear:
           format: int32
           readOnly: true
@@ -1140,13 +1140,14 @@ components:
           type: integer
         items:
           items:
-            $ref: '#/components/schemas/GalgameDeletedDto'
+            $ref: "#/components/schemas/GalgameDeletedDto"
           nullable: true
           type: array
       type: object
     GalgameDto:
       additionalProperties: false
       example:
+        headerImageUrl: headerImageUrl
         releasedDateTimeStamp: 9
         expectedPlayTime: expectedPlayTime
         rating: 7.0614014
@@ -1249,6 +1250,9 @@ components:
         imageUrl:
           nullable: true
           type: string
+        headerImageUrl:
+          nullable: true
+          type: string
         tags:
           items:
             type: string
@@ -1256,24 +1260,24 @@ components:
           type: array
         characters:
           items:
-            $ref: '#/components/schemas/CharacterDto'
+            $ref: "#/components/schemas/CharacterDto"
           nullable: true
           type: array
         staffs:
           items:
-            $ref: '#/components/schemas/StaffGameDto'
+            $ref: "#/components/schemas/StaffGameDto"
           nullable: true
           type: array
         playTime:
           items:
-            $ref: '#/components/schemas/PlayLogDto'
+            $ref: "#/components/schemas/PlayLogDto"
           nullable: true
           type: array
         totalPlayTime:
           format: int32
           type: integer
         playType:
-          $ref: '#/components/schemas/PlayType'
+          $ref: "#/components/schemas/PlayType"
         comment:
           nullable: true
           type: string
@@ -1291,7 +1295,8 @@ components:
         cnt: 0
         pageSize: 5
         items:
-        - releasedDateTimeStamp: 9
+        - headerImageUrl: headerImageUrl
+          releasedDateTimeStamp: 9
           expectedPlayTime: expectedPlayTime
           rating: 7.0614014
           vndbId: vndbId
@@ -1356,7 +1361,8 @@ components:
             relation:
             - 6
             - 6
-        - releasedDateTimeStamp: 9
+        - headerImageUrl: headerImageUrl
+          releasedDateTimeStamp: 9
           expectedPlayTime: expectedPlayTime
           rating: 7.0614014
           vndbId: vndbId
@@ -1436,7 +1442,7 @@ components:
           type: integer
         items:
           items:
-            $ref: '#/components/schemas/GalgameDto'
+            $ref: "#/components/schemas/GalgameDto"
           nullable: true
           type: array
       type: object
@@ -1450,6 +1456,7 @@ components:
         vndbId: vndbId
         description: description
         totalPlayTime: 5
+        headerImageOssLoc: headerImageOssLoc
         tags:
         - tags
         - tags
@@ -1496,6 +1503,7 @@ components:
           minute: 1
         comment: comment
         id: 0
+        headerImageExternalUrl: headerImageExternalUrl
         myRate: 4
       properties:
         id:
@@ -1534,6 +1542,12 @@ components:
         imageLoc:
           nullable: true
           type: string
+        headerImageExternalUrl:
+          nullable: true
+          type: string
+        headerImageOssLoc:
+          nullable: true
+          type: string
         tags:
           items:
             type: string
@@ -1544,15 +1558,15 @@ components:
           nullable: true
           type: integer
         playType:
-          $ref: '#/components/schemas/PlayType'
+          $ref: "#/components/schemas/PlayType"
         characters:
           items:
-            $ref: '#/components/schemas/CharacterUpdateDto'
+            $ref: "#/components/schemas/CharacterUpdateDto"
           nullable: true
           type: array
         playTime:
           items:
-            $ref: '#/components/schemas/PlayLogDto'
+            $ref: "#/components/schemas/PlayLogDto"
           nullable: true
           type: array
         comment:
@@ -1599,11 +1613,13 @@ components:
       - 2
       - 3
       - 4
+      - 5
       format: int32
       type: integer
     ServerInfoDto:
       additionalProperties: false
       example:
+        serverVersion: serverVersion
         bangumiOAuth2Enable: true
         bangumiLoginEnable: true
         defaultLoginEnable: true
@@ -1622,6 +1638,10 @@ components:
         staffEnable:
           description: 是否支持同步Staff
           type: boolean
+        serverVersion:
+          description: 服务器版本号
+          nullable: true
+          type: string
       type: object
     StaffDto:
       additionalProperties: false
@@ -1682,7 +1702,7 @@ components:
           nullable: true
           type: string
         gender:
-          $ref: '#/components/schemas/Gender'
+          $ref: "#/components/schemas/Gender"
         description:
           maxLength: 10000
           nullable: true
@@ -1702,7 +1722,7 @@ components:
           type: integer
         staffGames:
           items:
-            $ref: '#/components/schemas/StaffGameDto'
+            $ref: "#/components/schemas/StaffGameDto"
           nullable: true
           type: array
       type: object
@@ -1779,7 +1799,7 @@ components:
           type: integer
         items:
           items:
-            $ref: '#/components/schemas/StaffDto'
+            $ref: "#/components/schemas/StaffDto"
           nullable: true
           type: array
       type: object
@@ -1800,7 +1820,7 @@ components:
           type: integer
         relation:
           items:
-            $ref: '#/components/schemas/Career'
+            $ref: "#/components/schemas/Career"
           nullable: true
           type: array
       type: object
@@ -1817,7 +1837,7 @@ components:
           type: integer
         relation:
           items:
-            $ref: '#/components/schemas/Career'
+            $ref: "#/components/schemas/Career"
           nullable: true
           type: array
       type: object
@@ -1879,7 +1899,7 @@ components:
           nullable: true
           type: string
         gender:
-          $ref: '#/components/schemas/Gender'
+          $ref: "#/components/schemas/Gender"
         description:
           maxLength: 10000
           nullable: true
@@ -1897,7 +1917,7 @@ components:
           type: string
         staffGames:
           items:
-            $ref: '#/components/schemas/StaffGameUpdateDto'
+            $ref: "#/components/schemas/StaffGameUpdateDto"
           nullable: true
           type: array
       type: object
@@ -1925,7 +1945,7 @@ components:
           nullable: true
           type: string
         type:
-          $ref: '#/components/schemas/UserType'
+          $ref: "#/components/schemas/UserType"
         bangumiId:
           description: 用户所属的BangumiId，若为0则表示未绑定
           format: int32
@@ -1990,7 +2010,7 @@ components:
           type: integer
         items:
           items:
-            $ref: '#/components/schemas/UserDto'
+            $ref: "#/components/schemas/UserDto"
           nullable: true
           type: array
       type: object
@@ -2083,7 +2103,7 @@ components:
         token: token
       properties:
         user:
-          $ref: '#/components/schemas/UserDto'
+          $ref: "#/components/schemas/UserDto"
         token:
           nullable: true
           type: string
@@ -2106,7 +2126,7 @@ components:
         temperatureF: 9
       properties:
         date:
-          $ref: '#/components/schemas/DateOnly'
+          $ref: "#/components/schemas/DateOnly"
         temperatureC:
           format: int32
           type: integer

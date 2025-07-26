@@ -15,6 +15,8 @@ Name | Type | Description | Notes
 **Rating** | **float?** |  | [optional] 
 **ReleaseDateTimeStamp** | **long?** |  | [optional] 
 **ImageLoc** | **string** |  | [optional] 
+**HeaderImageExternalUrl** | **string** |  | [optional] 
+**HeaderImageOssLoc** | **string** |  | [optional] 
 **Tags** | **List&lt;string&gt;** |  | [optional] 
 **TotalPlayTime** | **int?** |  | [optional] 
 **PlayType** | **PlayType** |  | [optional] 

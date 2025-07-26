@@ -16,6 +16,7 @@ Name | Type | Description | Notes
 **Rating** | **float** |  | [optional] 
 **ReleasedDateTimeStamp** | **long** |  | [optional] 
 **ImageUrl** | **string** |  | [optional] 
+**HeaderImageUrl** | **string** |  | [optional] 
 **Tags** | **List&lt;string&gt;** |  | [optional] 
 **Characters** | [**List&lt;CharacterDto&gt;**](CharacterDto.md) |  | [optional] 
 **Staffs** | [**List&lt;StaffGameDto&gt;**](StaffGameDto.md) |  | [optional] 
