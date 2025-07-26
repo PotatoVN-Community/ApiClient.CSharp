@@ -18,7 +18,7 @@ jobs:
         persist-credentials: true
 
     - name: Download Swagger JSON
-      run: curl -o swagger.json https://potatovn.dev.potatox.moe:1443/swagger/v1/swagger.json
+      run: curl -o swagger.json https://potatovn.dev.goldenpotato.cn:1443/swagger/v1/swagger.json
 
     - name: Install OpenAPI Generator
       run: npm install -g @openapitools/openapi-generator-cli
